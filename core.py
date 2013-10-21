@@ -50,6 +50,8 @@ class DataCleaner(object):
                 line_items, end_row = self.get_line_items_for_purchase_order(
                     next_row)
             except IndexError:
+                # Add last purchase order
+                row_data.extend(line_items)
                 return row_data
             else:
                 next_row = end_row + 1
