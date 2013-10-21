@@ -1,6 +1,10 @@
+from xlrd import open_workbook
+
+
 class DataCleaner(object):
     def __init__(self, filename):
         self.filename = filename
+        self.wb = open_workbook(filename)
 
     def process(self):
         headers = self.get_headers()
