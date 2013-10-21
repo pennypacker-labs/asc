@@ -1,11 +1,11 @@
 CREATE TABLE purchase_order_line_items (
-   `po_number` INT(10),
+   `po_number` VARCHAR(50),
    `vendor` VARCHAR(255),
    `date` DATE,
    `stat` VARCHAR(1),
    `code` VARCHAR(255),
    `description` VARCHAR(255),
-   `catalog #` VARCHAR(100),
+   `catalog_number` VARCHAR(100),
    `req_number` INT(10),
    `UOM` VARCHAR(2),
    `price_per_UOM` DECIMAL(10,2),
