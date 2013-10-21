@@ -11,7 +11,7 @@ class DataCleaner(object):
         self.sheet = self.wb.sheets()[0]
 
     def process(self):
-        headers = self.get_row(HEADER_ROW)
+        headers = ['PO #', 'Vendor', 'Date'] + self.get_row(HEADER_ROW)
         rows = self.get_rows_from_workbook()
         row_data = self.get_data_from_rows(rows)
         self.output_to_csv(headers, row_data)
@@ -63,11 +63,11 @@ class DataCleaner(object):
         po_number = row[0]
         vendor = row[1]
         po_date = row[2]
-
+        po_info = [po_number, vendor, po_date]
 
         # Iterate over each line item as long as first cell is non-empty
         while(row[0]):
-            line_items.append(row)
+            line_items.append(po_info + row)
 
             # There are two empty rows between each line item
             row += 3
