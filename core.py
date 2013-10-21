@@ -47,7 +47,7 @@ class DataCleaner(object):
                 line_items.append(fields)
         return line_items
 
-    def get_line_items_for_purchase_order(self, start_row):
+    def get_line_items_for_purchase_order(self, row_index):
         """
         Assumes that start_row contains purchase order data,
         and that all subsequent line items are two spaces apart
@@ -59,7 +59,7 @@ class DataCleaner(object):
         line_items = []
 
         # Extract PO info
-        row = self.get_row(start_row)
+        row = self.get_row(row_index)
         po_number = row[0]
         vendor = row[1]
         po_date = row[2]
@@ -70,6 +70,7 @@ class DataCleaner(object):
             line_items.append(po_info + row)
 
             # There are two empty rows between each line item
-            row += 3
+            row_index += 3
+            row = self.get_row(row_index)
 
-        return line_items, row
+        return line_items, row_index
