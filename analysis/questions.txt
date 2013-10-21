@@ -5,7 +5,7 @@ SELECT vendor, count(*) AS item_count FROM `purchase_order_line_items` GROUP BY 
 SELECT vendor, SUM(amount_ordered) AS total_cost FROM `purchase_order_line_items` GROUP BY `vendor` ORDER BY total_cost DESC LIMIT 20;
 
 # From each vendor, how much of each item was ordered?
-SELECT vendor, description, SUM(qty_ordered) AS total_quantity FROM `purchase_order_line_items` GROUP BY `vendor`, `description` ORDER BY total_quantity DESC LIMIT 20;
+SELECT vendor, description, SUM(qty_ordered) AS total_quantity FROM `purchase_order_line_items` GROUP BY `vendor`, `description` ORDER BY total_quantity DESC;
 
 # Which items did LSC spend the most on?
 SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount
@@ -24,7 +24,7 @@ GROUP BY `catalog #`
 ORDER BY price_per_UOM DESC LIMIT 20;
 
 # What is total spent per day?
-SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE LIMIT 20;
+SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE;
 
 # How much spent on implants by vendor
 SELECT vendor, description, SUM(qty_ordered) AS total_quantity, SUM(amount_ordered) AS total_spent
