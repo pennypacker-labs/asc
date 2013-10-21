@@ -18,6 +18,10 @@ class DataCleaner(object):
     def process(self):
         headers = ['PO #', 'Vendor', 'Date'] + self.get_row(HEADER_ROW)
         headers[6] = "Description Text"
+
+        # Supply qc is always empty so remove it from headers
+        headers.pop(4)
+
         row_data = self.get_data_from_rows()
         return self.output_to_csv(headers, row_data)
 
@@ -38,7 +42,7 @@ class DataCleaner(object):
         """
         next_row = START_ROW
         row_data = []
-        while next_row < 1000: #self.sheet.nrows:
+        while next_row < self.sheet.nrows:
             line_items, end_row = self.get_line_items_for_purchase_order(
                 next_row)
             next_row = end_row + 1
@@ -71,7 +75,11 @@ class DataCleaner(object):
 
         # Iterate over each line item as long as first cell is non-empty
         while(row[0]):
-            line_items.append(po_info + row)
+            line_item = po_info + row
+
+            # Remove supply qc value since always empty
+            line_item.pop(4)
+            line_items.append(line_item)
 
             # There are two empty rows between each line item
             row_index += 3
