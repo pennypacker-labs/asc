@@ -1,4 +1,7 @@
+import datetime
 from xlrd import open_workbook
+
+XL_START_DATE = datetime.datetime(1899, 12, 30)
 
 NUM_COLUMNS = 16
 HEADER_ROW = 22
@@ -59,7 +62,9 @@ class DataCleaner(object):
         row = self.get_row(row_index)
         po_number = row[0]
         vendor = row[1]
-        po_date = row[3]
+        po_date = (
+            XL_START_DATE + datetime.timedelta(
+                days=float(row[3]))).strftime("%Y-%m-%d")
         po_info = [po_number, vendor, po_date]
 
         # Iterate through the line items
