@@ -1,0 +1,20 @@
+CREATE TABLE purchase_order_line_items (
+   `po_number` INT(10),
+   `vendor` VARCHAR(255),
+   `date` DATE,
+   `stat` VARCHAR(1),
+   `code` VARCHAR(255),
+   `description` VARCHAR(255),
+   `catalog #` VARCHAR(100),
+   `req_number` INT(10),
+   `UOM` VARCHAR(2),
+   `price_per_UOM` DECIMAL(10,2),
+   `qty_ordered` INT(5),
+   `amount_ordered` DECIMAL(10,2),
+   `qty_received` INT(5),
+   `amount_received` DECIMAL(10,2),
+   `qty_pending` INT(5),
+   `amount_pending` DECIMAL(10,2),
+   `department` VARCHAR(100),
+   `manufacturer` VARCHAR(100)
+);
