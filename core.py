@@ -27,6 +27,17 @@ class DataCleaner(object):
 
         return row_values
 
+    def get_rows_from_workbook(self):
+        first_row = HEADER_ROW + 1
+        last_row = self.sheet.nrows / 100
+        num_columns = self.sheet.ncols
+        rows = []
+        for row in xrange(first_row, last_row):
+            rows.append([
+                self.sheet.cell(row, col).value
+                for col in xrange(0, num_columns)])
+        return rows
+
     def get_data_from_rows(self, rows):
         """
         Gets each line item from each purchase order.
