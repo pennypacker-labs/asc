@@ -17,6 +17,12 @@ ORDER BY total_amount DESC;
 # Which items did LSC order the most of?
 SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY `catalog #` ORDER BY total_quantity DESC;
 
+# Which items are the most expensive?
+SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount
+FROM purchase_order_line_items
+GROUP BY `catalog #`
+ORDER BY price_per_UOM DESC;
+
 # What is total spent per day?
 SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE;
 
