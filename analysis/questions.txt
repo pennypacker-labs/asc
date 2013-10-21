@@ -19,3 +19,9 @@ SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, s
 
 # What is total spent per day?
 SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE;
+
+# How much spent on implants by vendor
+SELECT vendor, description, SUM(qty_ordered) AS total_quantity, SUM(qty_ordered * amount_ordered) AS total_spent
+FROM `purchase_order_line_items`
+WHERE `description` LIKE "%IMPLANT%"
+GROUP BY `vendor`, `description` ORDER BY total_spent DESC;
