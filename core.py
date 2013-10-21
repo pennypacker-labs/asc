@@ -17,7 +17,7 @@ class DataCleaner(object):
 
     def process(self):
         headers = ['PO #', 'Vendor', 'Date'] + self.get_row(HEADER_ROW)
-        headers[3] = "Description Text"
+        headers[6] = "Description Text"
         row_data = self.get_data_from_rows()
         return self.output_to_csv(headers, row_data)
 
