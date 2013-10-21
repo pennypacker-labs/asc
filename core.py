@@ -2,6 +2,7 @@ from xlrd import open_workbook
 
 NUM_COLUMNS = 16
 HEADER_ROW = 22
+START_ROW = 27
 
 
 class DataCleaner(object):
@@ -27,37 +28,18 @@ class DataCleaner(object):
 
         return row_values
 
-    def get_rows_from_workbook(self):
-        first_row = HEADER_ROW + 1
-        last_row = self.sheet.nrows / 100
-        num_columns = self.sheet.ncols
-        rows = []
-        for row in xrange(first_row, last_row):
-            # accurately translate datetime
-            rows.append([
-                self.sheet.cell(row, col).value
-                for col in xrange(0, num_columns)])
-        return rows
-
-    def get_data_from_rows(self, rows):
+    def get_data_from_rows(self):
         """
         Gets each line item from each purchase order.
         """
-        line_items = []
-        vendor = None
-        date = None
-        order_number = None
-        for row in rows:
-            if self.is_purchase_order_row():
-                vendor = self.extract_vendor(row)
-                date = self.extract_date(row)
-                order_number = self.extract_order_number(row)
-                continue
-            elif self.is_line_item_row():
-                fields = self.get_fields(row)
-                fields.extend([vendor, date, order_number])
-                line_items.append(fields)
-        return line_items
+        next_row = START_ROW
+        row_data = []
+        while next_row < 1000: #self.sheet.nrows:
+            line_items, end_row = self.get_line_items_for_purchase_order(
+                next_row)
+            next_row = end_row + 1
+            row_data.extend(line_items)
+        return row_data
 
     def get_line_items_for_purchase_order(self, row_index):
         """
