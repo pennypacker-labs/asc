@@ -9,7 +9,13 @@ SELECT vendor, SUM(qty_ordered * amount_ordered) AS total_cost FROM `purchase_or
 SELECT vendor, description, SUM(qty_ordered) AS total_quantity FROM `purchase_order_line_items` GROUP BY `vendor`, `description` ORDER BY total_quantity DESC;
 
 # Which items did LSC spend the most on?
+SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount
+FROM purchase_order_line_items
+GROUP BY `catalog #`
+ORDER BY total_amount DESC;
 
 # Which items did LSC order the most of?
+SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY `catalog #` ORDER BY total_quantity DESC;
 
-# What is total spent per week?
+# What is total spent per day?
+SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE;
