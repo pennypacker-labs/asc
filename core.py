@@ -46,3 +46,30 @@ class DataCleaner(object):
                 fields.extend([vendor, date, order_number])
                 line_items.append(fields)
         return line_items
+
+    def get_line_items_for_purchase_order(self, start_row):
+        """
+        Assumes that start_row contains purchase order data,
+        and that all subsequent line items are two spaces apart
+        until empty.
+
+        Returns the last row index so we know where to continue.
+        """
+
+        line_items = []
+
+        # Extract PO info
+        row = self.get_row(start_row)
+        po_number = row[0]
+        vendor = row[1]
+        po_date = row[2]
+
+
+        # Iterate over each line item as long as first cell is non-empty
+        while(row[0]):
+            line_items.append(row)
+
+            # There are two empty rows between each line item
+            row += 3
+
+        return line_items, row
