@@ -43,19 +43,14 @@ class DataCleaner(object):
         next_row = START_ROW
         row_data = []
 
-        # Loop over purchase orders until the file runs out
-        # Assumes that we hit an IndexError eventually
-        while True:
-            try:
-                line_items, end_row = self.get_line_items_for_purchase_order(
+        while next_row < self.sheet.nrows:
+            line_items, end_row = self.get_line_items_for_purchase_order(
                     next_row)
-            except IndexError:
-                # Add last purchase order
-                row_data.extend(line_items)
-                return row_data
-            else:
-                next_row = end_row + 1
-                row_data.extend(line_items)
+            row_data.extend(line_items)
+            next_row = end_row + 1
+
+        return row_data
+
 
     def get_line_items_for_purchase_order(self, row_index):
         """
@@ -91,7 +86,10 @@ class DataCleaner(object):
 
             # There are two empty rows between each line item
             row_index += 3
-            row = self.get_row(row_index)
+            try:
+                row = self.get_row(row_index)
+            except IndexError:
+                break
 
         return line_items, row_index
 
