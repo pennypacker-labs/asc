@@ -13,8 +13,11 @@ class DataCleaner(object):
 
     def process(self):
         headers = ['PO #', 'Vendor', 'Date'] + self.get_row(HEADER_ROW)
+        headers[3] = "Description Text"
+
         rows = self.get_rows_from_workbook()
         row_data = self.get_data_from_rows(rows)
+
         self.output_to_csv(headers, row_data)
 
     def get_row(self, row):
