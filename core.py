@@ -1,4 +1,5 @@
 import datetime
+import csv
 from xlrd import open_workbook
 
 XL_START_DATE = datetime.datetime(1899, 12, 30)
@@ -17,11 +18,8 @@ class DataCleaner(object):
     def process(self):
         headers = ['PO #', 'Vendor', 'Date'] + self.get_row(HEADER_ROW)
         headers[3] = "Description Text"
-
-        rows = self.get_rows_from_workbook()
-        row_data = self.get_data_from_rows(rows)
-
-        self.output_to_csv(headers, row_data)
+        row_data = self.get_data_from_rows()
+        return self.output_to_csv(headers, row_data)
 
     def get_row(self, row):
         """
@@ -80,3 +78,11 @@ class DataCleaner(object):
             row = self.get_row(row_index)
 
         return line_items, row_index
+
+    def output_to_csv(self, headers, line_items):
+        with open('po_line_items.csv', 'wb') as csvfile:
+            line_item_writer = csv.writer(csvfile)
+            line_item_writer.writerow(headers)
+            for line_item in line_items:
+                line_item_writer.writerow(line_item)
+        print "Output saved to po_line_items.csv"
