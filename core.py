@@ -33,6 +33,7 @@ class DataCleaner(object):
         num_columns = self.sheet.ncols
         rows = []
         for row in xrange(first_row, last_row):
+            # accurately translate datetime
             rows.append([
                 self.sheet.cell(row, col).value
                 for col in xrange(0, num_columns)])
