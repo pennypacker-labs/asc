@@ -11,20 +11,21 @@ class DataCleaner(object):
         self.sheet = self.wb.sheets()[0]
 
     def process(self):
-        headers = self.get_headers()
+        headers = self.get_row(HEADER_ROW)
         rows = self.get_rows_from_workbook()
         row_data = self.get_data_from_rows(rows)
         self.output_to_csv(headers, row_data)
 
-    def get_headers(self):
+    def get_row(self, row):
         """
-        Returns a tuple of the column names
+        Returns a list of all values in row
         """
-        headers = []
+        row_values = []
         for col in xrange(NUM_COLUMNS):
-            headers.append(
-                str(self.sheet.cell(HEADER_ROW, col).value))
-        return headers
+            row_values.append(
+                str(self.sheet.cell(row, col).value))
+
+        return row_values
 
     def get_data_from_rows(self, rows):
         """
