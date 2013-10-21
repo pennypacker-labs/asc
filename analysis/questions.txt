@@ -1,5 +1,4 @@
-# What are the 10 vendors that have the most purchase orders?
-
+# What are the 10 vendors that have the most line items?
 SELECT vendor, count(*) AS item_count FROM `purchase_order_line_items` GROUP BY `vendor` ORDER BY item_count DESC LIMIT 20;
 
 # What are the 20 vendors that LSC pays the most?
