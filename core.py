@@ -62,6 +62,10 @@ class DataCleaner(object):
         po_date = row[3]
         po_info = [po_number, vendor, po_date]
 
+        # Iterate through the line items
+        row_index += 3
+        row = self.get_row(row_index)
+
         # Iterate over each line item as long as first cell is non-empty
         while(row[0]):
             line_items.append(po_info + row)
