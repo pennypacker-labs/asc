@@ -42,12 +42,18 @@ class DataCleaner(object):
         """
         next_row = START_ROW
         row_data = []
-        while next_row < self.sheet.nrows:
-            line_items, end_row = self.get_line_items_for_purchase_order(
-                next_row)
-            next_row = end_row + 1
-            row_data.extend(line_items)
-        return row_data
+
+        # Loop over purchase orders until the file runs out
+        # Assumes that we hit an IndexError eventually
+        while True:
+            try:
+                line_items, end_row = self.get_line_items_for_purchase_order(
+                    next_row)
+            except IndexError:
+                return row_data
+            else:
+                next_row = end_row + 1
+                row_data.extend(line_items)
 
     def get_line_items_for_purchase_order(self, row_index):
         """
