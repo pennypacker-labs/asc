@@ -1,0 +1,11 @@
+# What are the 10 vendors that have the most purchase orders?
+
+# What are the 10 vendors that LSC pays the most?
+
+# From each vendor, how much of each item was ordered?
+
+# Which items did LSC spend the most on?
+
+# Which items did LSC order the most of?
+
+# What is total spent per week?
