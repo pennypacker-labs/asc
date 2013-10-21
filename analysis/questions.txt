@@ -3,7 +3,7 @@
 SELECT vendor, count(*) AS item_count FROM `purchase_order_line_items` GROUP BY `vendor` ORDER BY item_count DESC LIMIT 10;
 
 # What are the 20 vendors that LSC pays the most?
-SELECT vendor, SUM(qty_ordered * amount_ordered) AS total_cost FROM `purchase_order_line_items` GROUP BY `vendor` ORDER BY total_cost DESC LIMIT 20;
+SELECT vendor, SUM(amount_ordered) AS total_cost FROM `purchase_order_line_items` GROUP BY `vendor` ORDER BY total_cost DESC LIMIT 20;
 
 # From each vendor, how much of each item was ordered?
 SELECT vendor, description, SUM(qty_ordered) AS total_quantity FROM `purchase_order_line_items` GROUP BY `vendor`, `description` ORDER BY total_quantity DESC;
@@ -21,7 +21,7 @@ SELECT vendor, description, price_per_UOM, sum(qty_ordered) AS total_quantity, s
 SELECT DATE, sum(qty_ordered) AS total_quantity, sum(amount_ordered) AS total_amount FROM purchase_order_line_items GROUP BY DATE ORDER BY DATE;
 
 # How much spent on implants by vendor
-SELECT vendor, description, SUM(qty_ordered) AS total_quantity, SUM(qty_ordered * amount_ordered) AS total_spent
+SELECT vendor, description, SUM(qty_ordered) AS total_quantity, SUM(amount_ordered) AS total_spent
 FROM `purchase_order_line_items`
 WHERE `description` LIKE "%IMPLANT%"
 GROUP BY `vendor`, `description` ORDER BY total_spent DESC;
