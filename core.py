@@ -74,7 +74,7 @@ class DataCleaner(object):
         row = self.get_row(row_index)
         po_number = row[0]
         vendor = row[1]
-        po_date = row[2]
+        po_date = row[3]
         po_info = [po_number, vendor, po_date]
 
         # Iterate over each line item as long as first cell is non-empty
